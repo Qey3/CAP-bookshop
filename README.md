@@ -1,17 +1,17 @@
 # A little project created with [SAP CAP](https://cap.cloud.sap/docs/get-started/) framework
 
-## This project was built using this tutorial series: [SAP Tutorial: App initialization, creating a model and API, manual API testing in CAP JAVA](https://medium.com/nerd-for-tech/sap-tutorial-complete-cap-java-part-1-fc1868c7bbba)
+## This project was developed following the tutorial: [SAP Tutorial: App initialization, creating a model and API, manual API testing in CAP JAVA](https://medium.com/nerd-for-tech/sap-tutorial-complete-cap-java-part-1-fc1868c7bbba)
 
-### Main points from tutorial for backend developer:
- - `db/` define there your [Entities & Type Definitions](https://cap.cloud.sap/docs/cds/cdl#entities-type-definitions)
- - CDS provide [Common Types and Aspects](https://cap.cloud.sap/docs/cds/common) with a prebuilt model `@sap/cds/common` for reuse in your project (such as `cuid`, `managed` and so on).
- - define [your `srv/<service-name>.cds` where you can configure which one and how to expose your entities](https://cap.cloud.sap/docs/cds/cdl#services) 
- - you can add in your `<service-name>.cds` custom events, and catch them with your [Event Handler class](https://cap.cloud.sap/docs/java/event-handlers/) with `@Before`, `@On` and `@After` annotations
- - in your handler use [CqnAnalyzer](https://cap.cloud.sap/docs/java/working-with-cql/query-introspection) to analyze [Cqn](https://cap.cloud.sap/docs/cds/cqn) and [PersistenceService](https://cap.cloud.sap/docs/java/cqn-services/persistence-services) as database clients
- - use [Generated Accessor Interfaces](https://cap.cloud.sap/docs/java/cds-data#generated-accessor-interfaces) to obtain field and events name, also use this interfaces as entity
- - use `@path: 'myCustomServicePath'` to change endpoint, [otherwise endpoint of the exposed service will be constructed by its name](https://cap.cloud.sap/docs/cds/cdl#service-definitions)  
- - use [Model Imports](https://cap.cloud.sap/docs/cds/cdl#model-imports) to import definitions from other CDS models
- - define one file (for example `db/index.cds`) which one import all necessary entities
+### Key Takeaways for Backend Developers:
+ - `db/` → define your [Entities & Type Definitions](https://cap.cloud.sap/docs/cds/cdl#entities-type-definitions) here.
+ - [CDS Common Types](https://cap.cloud.sap/docs/cds/common) → use [Common Types and Aspects](https://cap.cloud.sap/docs/cds/common) from `@sap/cds/common` such as `cuid`, `managed`, etc.
+ - Exposing Entities → Define your service in `srv/<service-name>.cds`, specifying which entities to expose ([docs](https://cap.cloud.sap/docs/cds/cdl#services)) .
+ - Custom [Events & Handlers](https://cap.cloud.sap/docs/java/event-handlers/) → Define custom events in your `<service-name>.cds` and handle them using an [Event Handler class](https://cap.cloud.sap/docs/java/event-handlers/) with `@Before`, `@On` and `@After` annotations.
+ - Query Analysis & Persistence → Utilize [CqnAnalyzer](https://cap.cloud.sap/docs/java/working-with-cql/query-introspection) to analyze [CQN queries](https://cap.cloud.sap/docs/cds/cqn) and [PersistenceService](https://cap.cloud.sap/docs/java/cqn-services/persistence-services) as your database client.
+ - [Generated Accessor Interfaces](https://cap.cloud.sap/docs/java/cds-data#generated-accessor-interfaces) → Use [Generated Accessor Interfaces](https://cap.cloud.sap/docs/java/cds-data#generated-accessor-interfaces) to reference field names, events, and entities.
+ - Custom API Endpoints → Use `@path: 'myCustomServicePath'` to change endpoint, ([otherwise endpoint of the exposed service will be constructed by its name](https://cap.cloud.sap/docs/cds/cdl#service-definitions)).
+ - [Model Imports](https://cap.cloud.sap/docs/cds/cdl#model-imports) → Leverage [Model Imports](https://cap.cloud.sap/docs/cds/cdl#model-imports) to reuse definitions from other CDS models.
+ - Single Entry Point for Entities → Create a single file (for example `db/index.cds`) to import all necessary entities for better maintainability.
 
 ### CAP project structure:
 * my-cap-project/
