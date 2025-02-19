@@ -46,3 +46,5 @@ content-type: application/json
   "text": "Birds freak me out",
   "rating": 1
 }
+### Get a Review
+GET http://admin:admin@localhost:8080/api/browse/Reviews(8219a8aa-9e8a-46a5-8a5d-81291e6630d7) HTTP/1.1
