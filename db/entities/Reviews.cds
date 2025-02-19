@@ -1,6 +1,6 @@
 namespace com.example.bookshop;
 
-using {com.example.bookshop as bookshop} from './index';
+using {com.example.bookshop as bookshop} from '../index';
 using {
   cuid,
   managed

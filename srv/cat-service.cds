@@ -1,4 +1,4 @@
-using {com.example.bookshop as bookshop} from '../db/books';
+using {com.example.bookshop as bookshop} from '../db/entities/books';
 
 @path: 'browse'
 service CatalogService {

@@ -37,3 +37,12 @@ content-type: application/json
   "text": "Birds freak me out",
   "rating": 1
 }
+### Call addReview event
+POST http://admin:admin@localhost:8080/api/browse/Books(f846b0b9-01d4-4f6d-82a4-d79204f62278)/CatalogService.addReview HTTP/1.1
+content-type: application/json
+
+{
+  "title": "I hated it",
+  "text": "Birds freak me out",
+  "rating": 1
+}
