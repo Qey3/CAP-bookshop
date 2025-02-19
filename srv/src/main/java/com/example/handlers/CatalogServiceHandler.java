@@ -1,6 +1,5 @@
 package com.example.handlers;
 
-import com.sap.cds.Result;
 import com.sap.cds.ql.Insert;
 import com.sap.cds.ql.cqn.AnalysisResult;
 import com.sap.cds.ql.cqn.CqnAnalyzer;
