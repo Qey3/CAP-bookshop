@@ -40,16 +40,6 @@
       "authenticationType": "xsuaa"
     },
     {
-      "source": "^/notes/webapp/(.*)$",
-      "localDir": "./",
-      "authenticationType": "xsuaa"
-    },
-    {
-      "source": "^/addresses/webapp/(.*)$",
-      "localDir": "./",
-      "authenticationType": "xsuaa"
-    },
-    {
       "source": "^/vue/(.*)$",
       "localDir": "./",
       "authenticationType": "xsuaa"

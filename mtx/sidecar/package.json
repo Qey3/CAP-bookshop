@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@sap/cds": "^8",
+    "@sap/cds-mtxs": "^2",
+    "@sap/xssec": "^4",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1"
+  },
+  "engines": {
+    "node": "^20"
+  },
+  "cds": {
+    "profiles": ["mtx-sidecar", "java"],
+    "[development]": {
+      "requires": { "auth": "dummy" }
+    }
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "build": "cds build ../.. --for mtx-sidecar --production && npm ci --prefix gen"
+  }
+}

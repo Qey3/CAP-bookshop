@@ -5,7 +5,16 @@
   "requires": {
     "[production]": {
       "auth": "xsuaa",
-      "db": "hana"
+      "db": "hana",
+      "multitenancy": true,
+      "extensibility": true,
+      "toggles": true
     }
+  },
+  "profiles": [
+    "with-mtx-sidecar"
+  ],
+  "cdsc": {
+    "newParser": true
   }
 }

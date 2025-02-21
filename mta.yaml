@@ -1,12 +1,12 @@
 _schema-version: 3.3.0
-ID: bookshop
+ID: bookshop-mt
 version: 1.0.0
 description: "A simple CAP project."
 parameters:
   enable-parallel-deployments: true
 
 modules:
-  - name: bookshop-srv
+  - name: bookshop-mt-srv
     type: java
     path: srv
     parameters:
@@ -17,6 +17,7 @@ modules:
       SPRING_PROFILES_ACTIVE: cloud,sandbox
       JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jre.SAPMachineJRE']"
       JBP_CONFIG_SAP_MACHINE_JRE: '{ version: 21.+ }'
+      CDS_MULTITENANCY_APPUI_TENANTSEPARATOR: "-"
     build-parameters:
       builder: custom
       commands:
@@ -30,13 +31,40 @@ modules:
       - name: app-api
         properties:
           CDS_MULTITENANCY_APPUI_URL: ~{url}
-      - name: bookshop-auth
-      - name: bookshop-db
       - name: app-log-service
+      - name: mtx-api
+        properties:
+          CDS_MULTITENANCY_SIDECAR_URL: ~{mtx-url}
+      - name: bookshop-mt-saas-registry
+      - name: bookshop-mt-auth
+      - name: bookshop-mt-service-manager
 
-  - name: bookshop
+# --------------------- SIDECAR MODULE -----------------------
+  - name: bookshop-mt-sidecar
+    type: nodejs
+    path: mtx/sidecar
+    parameters:
+      memory: 256M
+      disk-quota: 1024M
+    build-parameters:
+      builder: custom
+      build-result: gen
+      commands:
+        - npm run build
+      requires:
+        - name: bookshop-mt-srv
+    requires:
+      - name: bookshop-mt-service-manager
+      - name: bookshop-mt-auth
+      - name: app-log-service
+    provides:
+      - name: mtx-api
+        properties:
+          mtx-url: ${default-url}
+# --------------------- APPROUTER MODULE ---------------------
+  - name: bookshop-mt-app
     type: approuter.nodejs
-    path: app\
+    path: app
     parameters:
       keep-existing-routes: true
       disk-quota: 256M
@@ -48,46 +76,55 @@ modules:
           name: backend # must be used in xs-app.json as well
           url: ~{srv-url}
           forwardAuthToken: true
-      - name: bookshop-auth
+      - name: bookshop-mt-auth
     provides:
       - name: app-api
         properties:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
           url: ${default-url}
-
-  - name: bookshop-db-deployer
-    type: hdb
-    path: db
-    parameters:
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: custom
-      commands:
-        - npm run build
-      requires:
-        - name: bookshop-srv
-    requires:
-      - name: bookshop-db
+    properties:
+      TENANT_HOST_PATTERN: "^(.*)-${default-uri}"
 
 resources:
-  - name: bookshop-auth
+  - name: bookshop-mt-auth
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
       service-plan: application
-      path: ./xs-security.json
+      path: ./xs-security-mt.json
       config:
-        xsappname: bookshop-${org}-${space}
-        tenant-mode: dedicated
+        xsappname: bookshop-mt-${org}-${space}
+        tenant-mode: shared
     requires:
       - name: app-api
 
-  - name: bookshop-db
-    type: com.sap.xs.hdi-container
+  - name: bookshop-mt-service-manager
+    type: org.cloudfoundry.managed-service
     parameters:
-      service: hana
-      service-plan: hdi-shared
+      service: service-manager
+      service-plan: container
+
+  - name: bookshop-mt-saas-registry
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: saas-registry
+      service-plan: application
+      config:
+        appName: bookshop-mt-${org}-${space}
+        xsappname: bookshop-mt-${org}-${space}
+        appUrls:
+          getDependencies: ~{srv-api/srv-url}/mt/v1.0/subscriptions/dependencies
+          onSubscription: ~{srv-api/srv-url}/mt/v1.0/subscriptions/tenants/{tenantId}
+          onSubscriptionAsync: true
+          onUnSubscriptionAsync: true
+          onUpdateDependenciesAsync: true
+          callbackTimeoutMillis: 300000 # Increase if your deployments are taking longer than that
+        displayName: My Bookshop App
+        description: A simple CAP project.
+        category: 'Category'
+    requires:
+      - name: srv-api
 
   - name: app-log-service
     type: application-logs
