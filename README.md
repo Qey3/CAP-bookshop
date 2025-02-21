@@ -13,6 +13,13 @@
  - [Model Imports](https://cap.cloud.sap/docs/cds/cdl#model-imports) → Leverage [Model Imports](https://cap.cloud.sap/docs/cds/cdl#model-imports) to reuse definitions from other CDS models.
  - Single Entry Point for Entities → Create a single file (for example `db/index.cds`) to import all necessary entities for better maintainability.
 
+### [Deploy CAP Java App to SAP Business Technology Platform](https://developers.sap.com/tutorials/cp-cap-java-deploy-cf.html)
+* First automatically add configurations for Hana, authentication and routing: `cds add hana,mta,xsuaa,approuter --for production`
+* Configure generated `xs-security.json`
+* Don't forget set up routing in `app/xs-app.json`
+* Build project `mbt build -t gen --mtar mta.mtar`
+* And deploy `cf deploy gen/mta.mtar`
+
 ### CAP project structure:
 * my-cap-project/
 * │── app/             # UI5 / Fiori / Frontend applications
@@ -52,3 +59,7 @@ Can contain `.http` test scripts or Jest/Mocha tests.
    - `package.json` → Defines dependencies (if `Node.js` is used).
    - `mta.yaml` → Required for deployment to SAP BTP as an MTA.
    - `cds.json` or `.cdsrc.json` → CAP configuration settings.
+
+### Useful links:
+ - [cloud-cap-samples Bookshop](https://github.com/SAP-samples/cloud-cap-samples/tree/main/bookshop)
+ - [Official CAP Samples for Java](https://github.com/SAP-samples/cloud-cap-samples-java)
