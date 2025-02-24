@@ -20,6 +20,32 @@
 * Build project `mbt build -t gen --mtar mta.mtar`
 * And deploy `cf deploy gen/mta.mtar`
 
+### [Add Multitenancy](https://cap.cloud.sap/docs/guides/deployment/to-cf#add-multitenancy)
+* To enable multitenancy for production, run the following command: `cds add multitenancy --for production`
+* [Configuring the Required Services](https://cap.cloud.sap/docs/java/multitenancy-classic#required-services-mt):
+  1. Remove Existing HDI Configuration
+     - If you added multitenancy to an existing project, remove the HDI configuration from the `resources` section.
+  2. Configure the Service Manager
+     - Instead of HDI, configure the [Service Manager](https://cap.cloud.sap/docs/java/multitenancy-classic#required-services-mt) to dynamically create database containers per tenant at runtime.
+  3. Set Up the [MTX Sidecar](https://cap.cloud.sap/docs/java/multitenancy-classic#mtx-sidecar-server)
+     - Update your `xs-security-mt.json` file:
+         - Add the `mtcallback` scope to enable subscription via the SaaS Registry.
+         - Add the `mtdeployment` scope to trigger database artifact re-deployment when needed.
+     - Modify your `mta.json` file:
+         - Ensure that `mtx-sidecar` requires instances of the UAA Service and Service Manager.
+
+If you added multitenancy to an existing project, remove the HDI configuration from the resources section.
+Configure the Service Manager
+
+Instead of HDI, configure the Service Manager to dynamically create database containers per tenant at runtime.
+Set Up the MTX Sidecar
+
+Update your xs-security-mt.json file:
+Add the mtcallback scope to enable subscription via the SaaS Registry.
+Add the mtdeployment scope to trigger database artifact re-deployment when needed.
+Modify your mta.json file:
+Ensure that mtx-sidecar requires instances of the UAA Service and Service Manager.
+
 ### CAP project structure:
 * my-cap-project/
 * │── app/             # UI5 / Fiori / Frontend applications
