@@ -34,18 +34,6 @@
      - Modify your `mta.json` file:
          - Ensure that `mtx-sidecar` requires instances of the UAA Service and Service Manager.
 
-If you added multitenancy to an existing project, remove the HDI configuration from the resources section.
-Configure the Service Manager
-
-Instead of HDI, configure the Service Manager to dynamically create database containers per tenant at runtime.
-Set Up the MTX Sidecar
-
-Update your xs-security-mt.json file:
-Add the mtcallback scope to enable subscription via the SaaS Registry.
-Add the mtdeployment scope to trigger database artifact re-deployment when needed.
-Modify your mta.json file:
-Ensure that mtx-sidecar requires instances of the UAA Service and Service Manager.
-
 ### CAP project structure:
 * my-cap-project/
 * │── app/             # UI5 / Fiori / Frontend applications
