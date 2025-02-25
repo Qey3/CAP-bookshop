@@ -20,7 +20,7 @@
 * Build project `mbt build -t gen --mtar mta.mtar`
 * And deploy `cf deploy gen/mta.mtar`
 
-### [Add Multitenancy](https://cap.cloud.sap/docs/guides/deployment/to-cf#add-multitenancy)
+### [Enable Multitenancy](https://cap.cloud.sap/docs/guides/multitenancy/#enable-multitenancy)
 * To enable multitenancy for production, run the following command: `cds add multitenancy --for production`
 * [Configuring the Required Services](https://cap.cloud.sap/docs/java/multitenancy-classic#required-services-mt):
   1. Remove Existing HDI Configuration
@@ -33,6 +33,8 @@
          - Add the `mtdeployment` scope to trigger database artifact re-deployment when needed.
      - Modify your `mta.json` file:
          - Ensure that `mtx-sidecar` requires instances of the UAA Service and Service Manager.
+
+## Useful notes:
 
 ### CAP project structure:
 * my-cap-project/
