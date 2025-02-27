@@ -27,10 +27,6 @@ annotate CatalogService.Books with @(UI: {
       Target: '@UI.DataPoint#rating',
       Label : '{i18n>Rating}'
     },
-    {
-      $Type : 'UI.DataFieldForAnnotation',
-      Target: '@UI.FieldGroup#AddReview',
-    },
   ],
 
   SelectionFields      : [
@@ -50,12 +46,6 @@ annotate CatalogService.Books with @(UI: {
     TargetValue  : 5
   },
 
-  FieldGroup #AddReview: {Data: [{
-    $Type             : 'UI.DataFieldForAction',
-    Label             : 'Add Review',
-    Action            : 'CatalogService.addReview',
-    InvocationGrouping: #Isolated
-  }]}
 }) {
   @UI.HiddenFilter descr;
   @Measures.ISOCurrency: currency.code price

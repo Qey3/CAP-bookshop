@@ -5,15 +5,23 @@ import com.sap.cds.ql.cqn.AnalysisResult;
 import com.sap.cds.ql.cqn.CqnAnalyzer;
 import com.sap.cds.ql.cqn.CqnSelect;
 import com.sap.cds.reflect.CdsModel;
+import com.sap.cds.services.EventContext;
+import com.sap.cds.services.cds.CdsReadEventContext;
+import com.sap.cds.services.cds.CqnService;
 import com.sap.cds.services.handler.EventHandler;
+import com.sap.cds.services.handler.annotations.Before;
 import com.sap.cds.services.handler.annotations.On;
 import com.sap.cds.services.handler.annotations.ServiceName;
+import com.sap.cds.services.messages.Messages;
 import com.sap.cds.services.persistence.PersistenceService;
 import gen.catalogservice.Books;
 import gen.catalogservice.BooksAddReviewContext;
+import gen.catalogservice.Books_;
 import gen.catalogservice.CatalogService_;
 import gen.catalogservice.Reviews;
 import gen.catalogservice.Reviews_;
+import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,11 +31,20 @@ public class CatalogServiceHandler implements EventHandler {
 
   private final PersistenceService db;
   private final CqnAnalyzer cqnAnalyzer;
+  private final Messages messages;
 
   @Autowired
-  public CatalogServiceHandler(PersistenceService db, CdsModel cdsModel) {
+  public CatalogServiceHandler(PersistenceService db, CdsModel cdsModel, Messages messages) {
     this.db = db;
     this.cqnAnalyzer = CqnAnalyzer.create(cdsModel);
+    this.messages = messages;
+  }
+
+  @Before
+  public void validateReviewPrice(BooksAddReviewContext context) {
+    if (context.getRating() < 0 || context.getRating() > 5) {
+      messages.error("Unappropriated rating, should be between 0 and 5");
+    }
   }
 
   @On(event = BooksAddReviewContext.CDS_NAME)
@@ -47,5 +64,10 @@ public class CatalogServiceHandler implements EventHandler {
     Reviews newResult = db.run(insert).single(Reviews.class);
 
     context.setResult(newResult);
+  }
+
+  @Before(entity = Books_.CDS_NAME)
+  public void beforeRead(CdsReadEventContext context) {
+    System.out.println("beforeRead");
   }
 }

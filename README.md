@@ -34,7 +34,7 @@
      - Modify your `mta.json` file:
          - Ensure that `mtx-sidecar` requires instances of the UAA Service and Service Manager.
 
-## Useful notes:
+## Reminder notes:
 
 ### CAP project structure:
 * my-cap-project/
