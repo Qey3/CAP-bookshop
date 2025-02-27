@@ -7,6 +7,13 @@ sap.ui.define([
 
   const getAddReviewDialog = (oEvent) => oEvent.getSource().getParent();
 
+  const setInputError = (oInputElement, bHasError) => {
+    const oFormErrorModel = oInputElement.getModel("formErrors");
+    const oInputErrors = {...oFormErrorModel.getProperty("/inputErrors")};
+    oInputErrors [oInputElement.getId()] = bHasError;
+    oFormErrorModel.setProperty("/inputErrors", oInputErrors);
+  };
+
   return {
     beforeOpenDialog: function (oEvent, oParam) {
       console.log("BEFORE OPEN RAN");

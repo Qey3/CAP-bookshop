@@ -8,3 +8,9 @@ annotate bookshop.Books with {
   descr    @title: 'Description';
   currency @UI.Hidden;
 }
+
+annotate bookshop.Reviews with {
+  title  @title: 'Title';
+  rating @title: 'Rating';
+  text   @title: 'Comment';
+};
