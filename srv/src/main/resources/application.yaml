@@ -19,7 +19,28 @@ cds:
   messaging.services:
     bupa-messaging:
       kind: file-based-messaging
+  application.services:
+    WarehouseService-mocked:
+      model: WarehouseService
+      serve:
+        path: WarehouseService
+  remote.services:
+    WarehouseService:
+        destination:
+          name: "warehouse-api-mocked"
 
+---
+spring:
+  config.activate.on-profile: destination
+cds:
+  remote.services:
+    WarehouseService:
+      type: "odata-v4"
+      http:
+        suffix: "/odata/v4"
+      destination:
+        name: "warehouse-destination"
+        retrievalStrategy: "AlwaysProvider"
 ---
 spring:
   config.activate.on-profile: ft
@@ -49,21 +70,33 @@ cds:
 
 ---
 spring:
-  config.activate.on-profile: default
-  sql.init.platform: h2
-
+  config:
+    activate:
+      on-profile: default
+  sql:
+    init:
+      platform: h2
 cds:
-  data-source:
-    auto-config.enabled: false
   security:
-    authentication.normalize-provider-tenant: true
-    mock.users:
-      admin:
-        password: admin
-        roles:
+    mock:
+      users:
+        admin:
+          password: admin
+          roles:
           - admin
-        attributes:
-          businessPartner:
-            - "10401010"
-      user:
-        password: user
+          attributes:
+            businessPartner:
+            - '10401010'
+        user:
+          password: user
+    authentication:
+      normalize-provider-tenant: true
+  data-source:
+    auto-config:
+      enabled: false
+  remote:
+    services:
+      '[WarehouseService]':
+        destination:
+          name: WarehouseService
+        type: odata-v4

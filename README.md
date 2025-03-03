@@ -34,6 +34,36 @@
      - Modify your `mta.json` file:
          - Ensure that `mtx-sidecar` requires instances of the UAA Service and Service Manager.
 
+### [CAP Remote services (destination)](https://cap.cloud.sap/docs/java/cqn-services/remote-services#configuring-remote-services)
+ - create simple OData project with some data model and run `mvn clean install`
+ - add your second project as a service [doc](https://cap.cloud.sap/docs/guides/using-services#import-api)
+ - create your `destination-service.cds` with defining entity based on destinations-one and service
+ - configure URL and name of destination [doc](https://cap.cloud.sap/docs/java/cqn-services/remote-services#configuring-the-url)
+ - call destination resources as it your owh as it your own resources
+
+1. **Create a Simple OData Project**
+    - Define a basic data model, service and run:
+      ```sh
+      mvn clean install
+      ```
+
+2. **Add Your Second Project as a Service**
+    - Follow the official documentation:  
+      [Import API Guide](https://cap.cloud.sap/docs/guides/using-services#import-api)
+
+3. **Define `destination-service.cds`**
+    - Create a `.CDS` file to define an entity based on the destination and service. [Model Projections](https://cap.cloud.sap/docs/guides/using-services#model-projections)
+
+4. **Configure the Destination URL and Name**
+    - Refer to the documentation for configuration details:  
+      [Configuring the URL](https://cap.cloud.sap/docs/java/cqn-services/remote-services#configuring-the-url)
+
+5. **Call Destination Resources**
+    - Access remote services as if they were your own. [Execute Queries with Java](https://cap.cloud.sap/docs/guides/using-services#execute-queries-with-java)
+
+### TODO:
+ - set tup destination for local testing
+
 ## Reminder notes:
 
 ### CAP project structure:

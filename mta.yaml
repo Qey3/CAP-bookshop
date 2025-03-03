@@ -14,7 +14,7 @@ modules:
       buildpack: sap_java_buildpack_jakarta
       enable-ssh: true
     properties:
-      SPRING_PROFILES_ACTIVE: cloud,sandbox
+      SPRING_PROFILES_ACTIVE: cloud,sandbox,destination
       JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jre.SAPMachineJRE']"
       JBP_CONFIG_SAP_MACHINE_JRE: '{ version: 21.+ }'
       CDS_MULTITENANCY_APPUI_TENANTSEPARATOR: "-"
@@ -38,6 +38,7 @@ modules:
       - name: bookshop-mt-saas-registry
       - name: bookshop-mt-auth
       - name: bookshop-mt-service-manager
+      - name: destination-service
 
 # --------------------- SIDECAR MODULE -----------------------
   - name: bookshop-mt-sidecar
@@ -132,3 +133,9 @@ resources:
       service-plan: lite
       logLevel: DEBUG
       retentionPeriod: 30
+
+  - name: destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite

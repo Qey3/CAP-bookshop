@@ -18,6 +18,7 @@
 		<!-- DEPENDENCIES VERSION -->
 		<jdk.version>21</jdk.version>
 		<cds.services.version>3.7.1</cds.services.version>
+		<cds.bom.version>5.16.0</cds.bom.version>
 		<spring.boot.version>3.4.2</spring.boot.version>
 
 		<cds.install-node.downloadUrl>https://nodejs.org/dist/</cds.install-node.downloadUrl>
@@ -44,6 +45,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- CDS Services BOM -->
+			<!-- Spring Boot dependencies BOM -->
+			<dependency>
+				<groupId>com.sap.cloud.sdk</groupId>
+				<artifactId>sdk-bom</artifactId>
+				<version>${cds.bom.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
