@@ -57,9 +57,10 @@
 4. **Configure the Destination URL and Name**
     - Refer to the documentation for configuration details:  
       [Configuring the URL](https://cap.cloud.sap/docs/java/cqn-services/remote-services#configuring-the-url)
+5.  **Don't forget add destination-service to your `mta.yaml`**
 
-5. **Call Destination Resources**
-    - Access remote services as if they were your own. [Execute Queries with Java](https://cap.cloud.sap/docs/guides/using-services#execute-queries-with-java)
+6. **Call Destination Resources**
+    - Access remote services as if they were your own resources. [Execute Queries with Java](https://cap.cloud.sap/docs/guides/using-services#execute-queries-with-java)
 
 ### TODO:
  - set tup destination for local testing
