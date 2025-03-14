@@ -64,6 +64,7 @@
 
 7. **Set tup destination for local testing**
     - You can [Mock Remote Service as OData Service (Java)](https://cap.cloud.sap/docs/guides/using-services#mock-remote-service-as-odata-service-java)
+    - You should start your Destination application locally with the same port from configuration
 
 
 ## Reminder notes:
