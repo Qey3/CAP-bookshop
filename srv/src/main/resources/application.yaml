@@ -27,7 +27,8 @@ cds:
   remote.services:
     WarehouseService:
         destination:
-          name: "warehouse-api-mocked"
+          name: "WarehouseService"
+          port: 8095
 
 ---
 spring:
@@ -76,6 +77,9 @@ spring:
   sql:
     init:
       platform: h2
+  datasource:
+    url: jdbc:h2:mem:testdb
+
 cds:
   security:
     mock:
@@ -96,7 +100,7 @@ cds:
       enabled: false
   remote:
     services:
-      '[WarehouseService]':
+      WarehouseService:
         destination:
           name: WarehouseService
         type: odata-v4

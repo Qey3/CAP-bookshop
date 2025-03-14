@@ -62,8 +62,9 @@
 6. **Call Destination Resources**
     - Access remote services as if they were your own resources. [Execute Queries with Java](https://cap.cloud.sap/docs/guides/using-services#execute-queries-with-java)
 
-### TODO:
- - set tup destination for local testing
+7. **Set tup destination for local testing**
+    - You can [Mock Remote Service as OData Service (Java)](https://cap.cloud.sap/docs/guides/using-services#mock-remote-service-as-odata-service-java)
+
 
 ## Reminder notes:
 

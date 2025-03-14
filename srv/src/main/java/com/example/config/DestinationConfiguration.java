@@ -4,6 +4,7 @@ import com.sap.cloud.sdk.cloudplatform.connectivity.DefaultDestinationLoader;
 import com.sap.cloud.sdk.cloudplatform.connectivity.DefaultHttpDestination;
 import com.sap.cloud.sdk.cloudplatform.connectivity.DestinationAccessor;
 import com.sap.cloud.sdk.cloudplatform.security.BasicCredentials;
+import gen.warehouseservice.WarehouseService_;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
@@ -20,12 +21,12 @@ public class DestinationConfiguration {
 
 	@EventListener
 	void applicationReady(ApplicationReadyEvent ready) {
-		Integer port = environment.getProperty("local.server.port", Integer.class);
-		String destinationName = environment.getProperty("cds.remote.services.WarehouseService.destination.name");
+		Integer port = environment.getProperty("cds.remote.services.WarehouseService.destination.port", Integer.class);
+		String destinationName = WarehouseService_.CDS_NAME;
 		if(port != null && destinationName != null) {
 			DefaultHttpDestination httpDestination = DefaultHttpDestination
-			.builder("http://localhost:" + port)
-			.basicCredentials(new BasicCredentials("authenticated", ""))
+			.builder("http://localhost:" + port + "/odata/v4")
+			.basicCredentials(new BasicCredentials("admin", "admin"))
 			.name(destinationName).build();
 
 			DestinationAccessor.prependDestinationLoader(
