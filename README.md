@@ -39,7 +39,7 @@
  - add your second project as a service [doc](https://cap.cloud.sap/docs/guides/using-services#import-api)
  - create your `destination-service.cds` with defining entity based on destinations-one and service
  - configure URL and name of destination [doc](https://cap.cloud.sap/docs/java/cqn-services/remote-services#configuring-the-url)
- - call destination resources as it your owh as it your own resources
+ - call destination resources as it your own resources
 
 1. **Create a Simple OData Project**
     - Define a basic data model, service and run:

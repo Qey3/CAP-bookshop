@@ -16,9 +16,6 @@ spring:
   config.activate.on-profile: mocked
 
 cds:
-  messaging.services:
-    bupa-messaging:
-      kind: file-based-messaging
   application.services:
     WarehouseService-mocked:
       model: WarehouseService
@@ -26,9 +23,11 @@ cds:
         path: WarehouseService
   remote.services:
     WarehouseService:
-        destination:
-          name: "WarehouseService"
-          port: 8095
+      http:
+        suffix: "/odata/v4"
+#        suffix: "/api"
+      destination:
+        name: "WarehouseService-mocked"
 
 ---
 spring:
@@ -87,10 +86,10 @@ cds:
         admin:
           password: admin
           roles:
-          - admin
+            - admin
           attributes:
             businessPartner:
-            - '10401010'
+              - '10401010'
         user:
           password: user
     authentication:
