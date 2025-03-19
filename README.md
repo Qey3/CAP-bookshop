@@ -66,6 +66,17 @@
     - You can [Mock Remote Service as OData Service (Java)](https://cap.cloud.sap/docs/guides/using-services#mock-remote-service-as-odata-service-java)
     - You should start your Destination application locally with the same port from configuration
 
+### [Logging Service](https://cap.cloud.sap/docs/java/operating-applications/observability#logging-service)
+1. **Bind your application to SAP Application Logging service**
+
+2. **Add appropriate log libraries to your project**
+
+3. **Configure output format by `.xml` configuration**
+
+4. **[Correlation IDs](https://cap.cloud.sap/docs/java/operating-applications/observability#correlation-ids)**
+    - Correlation IDs are handled out of the box by the CAP Java SDK
+    - You can try it with your own application and destination call to your second application (if you did previous step)
+    - One approach that worked for me was using Logback for logging and configuring the log output format to JSON in the Logback configuration. 
 
 ## Reminder notes:
 
